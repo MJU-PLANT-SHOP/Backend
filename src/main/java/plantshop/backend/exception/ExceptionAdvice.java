@@ -5,28 +5,29 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import plantshop.backend.response.FailureInfo;
-import plantshop.backend.response.Response;
+import plantshop.backend.response.BaseResponse;
 
 @Slf4j
 @RestControllerAdvice
 public class ExceptionAdvice {
 
     @ExceptionHandler(Exception.class)
-    protected Response internalSeverException(Exception e){
+    protected BaseResponse internalSeverException(Exception e){
         log.error("internal server exception", e);
-        return Response.failure(FailureInfo.INTERNAL_SERVER_EXCEPTION);
+        return new BaseResponse(FailureInfo.INTERNAL_SERVER_EXCEPTION);
     }
 
     @ExceptionHandler(GlobalException.class)
-    protected Response globalException(GlobalException e){
+    protected BaseResponse globalException(GlobalException e){
         log.error("global exception", e);
-        return Response.failure(e.getFailureInfo());
+        return new BaseResponse(e.getFailureInfo());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected Response invalidInputException(MethodArgumentNotValidException e){
+    protected BaseResponse invalidInputException(MethodArgumentNotValidException e){
         log.error("invalid input exception" + e);
-        return Response.failure(
+        return new BaseResponse(
+                false,
                 FailureInfo.INVALID_INPUT_EXCEPTION.getCode(),
                 e.getFieldError().getDefaultMessage()
         );
