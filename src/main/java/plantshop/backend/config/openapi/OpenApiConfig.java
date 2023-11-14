@@ -18,11 +18,9 @@ public class OpenApiConfig {
         final String securitySchemeName = "bearerAuth";
 
         Info info = new Info()
-                .title("PlantShop API")
-                .version("v1.1.0");
+                .title("PlantShop API");
 
         return new OpenAPI()
-                .addServersItem(new Server().url("/"))
                 .addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName)
                 )
