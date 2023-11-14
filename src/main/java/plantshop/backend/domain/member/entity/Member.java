@@ -2,6 +2,7 @@ package plantshop.backend.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import plantshop.backend.domain.AuditEntity;
 import plantshop.backend.domain.cart.entity.Cart;
 import plantshop.backend.domain.order.entity.Purchase;
 
@@ -14,7 +15,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Member {
+public class Member extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import plantshop.backend.domain.AuditEntity;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Product {
+public class Product extends AuditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
