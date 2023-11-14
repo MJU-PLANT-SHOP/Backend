@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/plant_shop
+    username: root
+    password: 1234
+
+#  sql:
+#    init:
+#      mode: always
+#      data-locations: classpath:sql/data.sql
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100  # Collection fetch join 시 100개씩 순차적으로 리스트를 불러옴 (DB 과부하 방지)
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
+
+logging:
+  level:
+    root: INFO
