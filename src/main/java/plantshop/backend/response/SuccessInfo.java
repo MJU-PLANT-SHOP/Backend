@@ -10,7 +10,8 @@ public enum SuccessInfo {
     LOGIN("로그인이 성공하였습니다."),
     WRITE_POST("게시글 작성이 성공하였습니다."),
     GET_POST_LIST("게시글 목록 가져오기를 성공하였습니다"),
-    GET_POST("게시글 가져오기를 성공하였습니다.");
+    GET_POST("게시글 가져오기를 성공하였습니다."),
+    TRY_PURCHASE("구매에 성공하였습니다.");
     private final String code = "1";
     private final String message;
 
