@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import plantshop.backend.domain.post.dto.request.WritePostRequestDto;
+import plantshop.backend.domain.post.dto.response.GetPostListResponseDto;
+import plantshop.backend.domain.post.dto.response.GetPostResponseDto;
 import plantshop.backend.domain.post.service.PostService;
 import plantshop.backend.response.BaseResponse;
 import plantshop.backend.response.DataResponse;
@@ -32,5 +34,11 @@ public class PostController {
     @GetMapping()
     public DataResponse<List<GetPostListResponseDto>> getPostList(){
         return new DataResponse<>(SuccessInfo.GET_POST_LIST, postService.getPostList());
+    }
+
+    @Operation(summary = "게시글 상세정보 가져오기 API", description = "조회할 게시글 아이디를 입력해주세요.")
+    @GetMapping("/detail")
+    public DataResponse<GetPostResponseDto> getPost(Long postId) {
+        return new DataResponse<>(SuccessInfo.GET_POST, postService.getPost(postId));
     }
 }

@@ -12,11 +12,14 @@ public enum FailureInfo {
     // 회원 (code : 10~ )
     ALREADY_EXISTENT_MEMBER("10", "이미 존재하는 회원입니다."),
     NOT_EXISTENT_MEMBER("11", "존재하지 않는 회원입니다."),
-    NOT_MATCH_PASSWORD("12", "비밀번호가 일치하지 않습니다.")
+    NOT_MATCH_PASSWORD("12", "비밀번호가 일치하지 않습니다."),
 
     // 상품 (code: 20~ )
 
     // 장바구니 (code: 30~ )
+
+    // 게시글(code: 40~ )
+    NOT_EXISTENT_POST("40", "존재하지않는 게시글입니다.")
 
     ;
     private final String code;

@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import plantshop.backend.domain.member.entity.Member;
 import plantshop.backend.domain.member.service.MemberService;
-import plantshop.backend.domain.post.controller.GetPostListResponseDto;
+import plantshop.backend.domain.post.dto.response.GetPostListResponseDto;
 import plantshop.backend.domain.post.dto.request.WritePostRequestDto;
+import plantshop.backend.domain.post.dto.response.GetPostResponseDto;
 import plantshop.backend.domain.post.entity.Post;
 import plantshop.backend.domain.post.repository.PostRepository;
+import plantshop.backend.exception.GlobalException;
+import plantshop.backend.response.FailureInfo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,5 +32,12 @@ public class PostService {
                 .stream()
                 .map(GetPostListResponseDto::from)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public GetPostResponseDto getPost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()->new GlobalException(FailureInfo.NOT_EXISTENT_POST));
+        return GetPostResponseDto.from(post);
     }
 }

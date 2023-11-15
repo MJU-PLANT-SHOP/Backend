@@ -1,4 +1,4 @@
-package plantshop.backend.domain.post.controller;
+package plantshop.backend.domain.post.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
