@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import plantshop.backend.domain.AuditEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
 
@@ -33,5 +34,5 @@ public class Product extends AuditEntity {
     @Column(nullable = false)
     private Integer price;
     @OneToMany(mappedBy = "product", cascade = ALL, orphanRemoval = true)
-    private ArrayList<ProductImage> productImageList = new ArrayList<>();
+    private List<ProductImage> productImageList = new ArrayList<>();
 }

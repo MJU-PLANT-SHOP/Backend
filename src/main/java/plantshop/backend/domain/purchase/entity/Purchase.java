@@ -1,4 +1,4 @@
-package plantshop.backend.domain.order.entity;
+package plantshop.backend.domain.purchase.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import plantshop.backend.domain.AuditEntity;
 import plantshop.backend.domain.member.entity.Member;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
 
@@ -36,5 +37,5 @@ public class Purchase extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
     @OneToMany(mappedBy = "purchase", cascade = ALL, orphanRemoval = true)
-    private ArrayList<PurchaseDetail> arrayList = new ArrayList<>();
+    private List<PurchaseDetail> arrayList = new ArrayList<>();
 }

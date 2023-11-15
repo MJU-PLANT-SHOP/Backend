@@ -3,7 +3,7 @@ spring:
     active: local
 
 jwt:
-  secret: ${jwt.secret}
+  secret: ${jwt.key}
 
 springdoc:
   packages-to-scan : plantshop.backend

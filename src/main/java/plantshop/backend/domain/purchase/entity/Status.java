@@ -1,4 +1,4 @@
-package plantshop.backend.domain.order.entity;
+package plantshop.backend.domain.purchase.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
