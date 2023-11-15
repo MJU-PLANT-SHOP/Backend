@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import plantshop.backend.domain.AuditEntity;
 import plantshop.backend.domain.cart.entity.Cart;
-import plantshop.backend.domain.order.entity.Purchase;
+import plantshop.backend.domain.purchase.entity.Purchase;
 
 import java.util.ArrayList;
 
