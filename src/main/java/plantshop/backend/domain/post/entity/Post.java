@@ -25,4 +25,8 @@ public class Post extends AuditEntity {
     private String title;
     @Column(nullable = false)
     private String content;
+
+    public void updateTitle(String title){
+        this.title = title;
+    }
 }

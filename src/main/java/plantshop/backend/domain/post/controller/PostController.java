@@ -4,14 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import plantshop.backend.domain.post.dto.request.WritePostRequestDto;
 import plantshop.backend.domain.post.service.PostService;
 import plantshop.backend.response.BaseResponse;
+import plantshop.backend.response.DataResponse;
 import plantshop.backend.response.SuccessInfo;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,5 +26,11 @@ public class PostController {
     public BaseResponse writePost(@Valid @RequestBody WritePostRequestDto writePostRequestDto){
         postService.writePost(writePostRequestDto);
         return new BaseResponse(SuccessInfo.WRITE_POST);
+    }
+
+    @Operation(summary = "게시글 목록 가져오기 API", description = "게시글 목록 가져오기.")
+    @GetMapping()
+    public DataResponse<List<GetPostListResponseDto>> getPostList(){
+        return new DataResponse<>(SuccessInfo.GET_POST_LIST, postService.getPostList());
     }
 }
