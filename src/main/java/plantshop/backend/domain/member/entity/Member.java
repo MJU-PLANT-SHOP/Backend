@@ -7,6 +7,7 @@ import plantshop.backend.domain.cart.entity.Cart;
 import plantshop.backend.domain.purchase.entity.Purchase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
 
@@ -32,7 +33,7 @@ public class Member extends AuditEntity {
     private String address;
 
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
-    private ArrayList<Cart> cartList = new ArrayList<>();
+    private List<Cart> cartList = new ArrayList<>();
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
-    private ArrayList<Purchase> purchaseList = new ArrayList<>();
+    private List<Purchase> purchaseList = new ArrayList<>();
 }
