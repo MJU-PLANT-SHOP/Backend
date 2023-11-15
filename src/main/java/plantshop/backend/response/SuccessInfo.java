@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum SuccessInfo {
     SING_UP("회원가입이 완료되었습니다."),
-    LOGIN("로그인이 성공하였습니다.");
+    LOGIN("로그인이 성공하였습니다."),
+    WRITE_POST("게시글 작성이 성공하였습니다.");
     private final String code = "1";
     private final String message;
 
