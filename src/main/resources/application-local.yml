@@ -5,10 +5,10 @@ spring:
     username: root
     password: 1234
 
-#  sql:
-#    init:
-#      mode: always
-#      data-locations: classpath:sql/data.sql
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:sql/data.sql
 
   jpa:
     open-in-view: false
@@ -23,7 +23,7 @@ spring:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
-#    defer-datasource-initialization: true
+    defer-datasource-initialization: true
 
 logging:
   level:
