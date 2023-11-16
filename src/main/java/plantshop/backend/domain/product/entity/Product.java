@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import plantshop.backend.domain.AuditEntity;
+import plantshop.backend.domain.cart.entity.Cart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,4 +36,6 @@ public class Product extends AuditEntity {
     private Integer price;
     @OneToMany(mappedBy = "product", cascade = ALL, orphanRemoval = true)
     private List<ProductImage> productImageList = new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = ALL, orphanRemoval = true)
+    private List<Cart> cartList = new ArrayList<>();
 }
