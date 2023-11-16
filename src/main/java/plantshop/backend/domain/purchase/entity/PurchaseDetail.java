@@ -14,7 +14,7 @@ import plantshop.backend.domain.product.entity.Product;
 @Entity
 @Builder
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"order_id", "product_id"})  // 동시성 문제로 인한 DB 중복 저장 방지
+        @UniqueConstraint(columnNames = {"purchase_id", "product_id"})  // 동시성 문제로 인한 DB 중복 저장 방지
 })
 public class PurchaseDetail extends AuditEntity {
     @Id
