@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import plantshop.backend.domain.member.entity.Member;
 import plantshop.backend.domain.purchase.entity.Purchase;
 import plantshop.backend.domain.purchase.entity.PurchaseDetail;
 import plantshop.backend.domain.purchase.entity.Status;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +20,7 @@ import java.util.List;
 public class PurchaseRequestDto {
 
     @NotBlank(message = "상품이 없습니다.")
-    @Schema(description = "배송지", defaultValue = "--")
+    @Schema(description = "배송지", defaultValue = "서대문구")
     private String deliveryAddress;
 
     @NotBlank(message = "상품이 없습니다.")
@@ -38,20 +40,31 @@ public class PurchaseRequestDto {
     private Status status;
 
     @NotBlank(message = "제품이 존재 하지 않습니다.")
-    @Schema(description = "주문 상세", defaultValue = "--")
+    @Schema(description = "주문 상세", defaultValue = "[\n" +
+            "    {\n" +
+            "      \"product\": {\"id\": 1},\n" +
+            "      \"count\": 2,\n" +
+            "      \"totalPrice\": 10.99\n" +
+            "    }\n" +
+            "  ]")
     private List<PurchaseDetail> purchaseDetailList;
 
+
     public Purchase toEntity(Member member) {
-        return Purchase.builder()
+        Purchase purchase = Purchase.builder()
                 .member(member)
                 .deliveryAddress(this.deliveryAddress)
                 .pickUpLocation(this.pickUpLocation)
                 .requirement(this.requirement)
                 .totalPrice(this.totalPrice)
                 .status(this.status)
-                .purchaseDetailList(this.purchaseDetailList)
                 .build();
+        List<PurchaseDetail> purchaseDetails = this.purchaseDetailList.stream()
+                .map(dto -> dto.toEntity(purchase))
+                .collect(Collectors.toList());
+        purchase.setPurchaseDetailList(purchaseDetails);
+        return purchase;
     }
-
-
 }
+
+

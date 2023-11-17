@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import plantshop.backend.domain.AuditEntity;
 import plantshop.backend.domain.product.entity.Product;
+import plantshop.backend.domain.purchase.dto.request.PurchaseRequestDto;
 
 @Getter
 @NoArgsConstructor
@@ -34,4 +35,14 @@ public class PurchaseDetail extends AuditEntity {
 
     @Column(nullable = false)
     private Integer totalPrice;
+
+
+    public PurchaseDetail toEntity(Purchase purchase) {
+        return PurchaseDetail.builder()
+                .purchase(purchase)
+                .product(this.product)
+                .count(this.count)
+                .totalPrice(this.totalPrice)
+                .build();
+    }
 }
