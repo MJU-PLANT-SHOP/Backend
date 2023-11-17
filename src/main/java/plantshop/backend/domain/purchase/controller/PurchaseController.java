@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import plantshop.backend.domain.purchase.dto.request.PurchaseDetailRequestDto;
 import plantshop.backend.domain.purchase.dto.request.PurchaseRequestDto;
 import plantshop.backend.domain.purchase.service.PurchaseService;
 import plantshop.backend.response.BaseResponse;

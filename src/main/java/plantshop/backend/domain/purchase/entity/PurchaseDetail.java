@@ -35,14 +35,4 @@ public class PurchaseDetail extends AuditEntity {
 
     @Column(nullable = false)
     private Integer totalPrice;
-
-
-    public PurchaseDetail toEntity(Purchase purchase) {
-        return PurchaseDetail.builder()
-                .purchase(purchase)
-                .product(this.product)
-                .count(this.count)
-                .totalPrice(this.totalPrice)
-                .build();
-    }
 }

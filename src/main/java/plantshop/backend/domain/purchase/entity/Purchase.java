@@ -36,5 +36,4 @@ public class Purchase extends AuditEntity {
     private Status status;
     @OneToMany(mappedBy = "purchase", cascade = {CascadeType.ALL, CascadeType.DETACH}, orphanRemoval = true)
     private List<PurchaseDetail> purchaseDetailList = new ArrayList<>();
-
 }

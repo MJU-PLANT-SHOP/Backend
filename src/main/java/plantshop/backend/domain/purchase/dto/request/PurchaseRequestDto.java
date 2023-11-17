@@ -47,7 +47,7 @@ public class PurchaseRequestDto {
             "      \"totalPrice\": 10.99\n" +
             "    }\n" +
             "  ]")
-    private List<PurchaseDetail> purchaseDetailList;
+    private List<PurchaseDetailRequestDto> purchaseDetailList;
 
 
     public Purchase toEntity(Member member) {
@@ -60,7 +60,7 @@ public class PurchaseRequestDto {
                 .status(this.status)
                 .build();
         List<PurchaseDetail> purchaseDetails = this.purchaseDetailList.stream()
-                .map(dto -> dto.toEntity(purchase))
+                .map(PurchaseDetailRequestDto -> PurchaseDetailRequestDto.toEntity(purchase))
                 .collect(Collectors.toList());
         purchase.setPurchaseDetailList(purchaseDetails);
         return purchase;
