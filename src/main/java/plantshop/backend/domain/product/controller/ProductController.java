@@ -3,6 +3,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import plantshop.backend.domain.product.dto.response.GetRecommendProductListDto;
 import plantshop.backend.domain.product.dto.response.GetProductListForHomepageFirstMenuResponseDto;
 import plantshop.backend.domain.product.dto.response.GetProductListForHomepageSecondMenuResponseDto;
 import plantshop.backend.domain.product.dto.response.GetProductResponseDto;
@@ -39,6 +40,12 @@ public class ProductController {
     @GetMapping("/homepage/second-menu")
     public DataResponse<List<GetProductListForHomepageSecondMenuResponseDto>> getProductListForHomepageSecondMenu(){
         return new DataResponse<>(SuccessInfo.GET_PRODUCT_LIST, productService.getProductListForHomepageSecondMenu());
+    }
+
+    @Operation(summary = "상세 페이지 추천 상품 목록 가져오기 API", description = "상세 페이지 추천 상품 목록 가져오기")
+    @GetMapping("/detail/recommend")
+    public DataResponse<List<GetRecommendProductListDto>> getRecommendProductList(Long productId, Category category){
+        return new DataResponse<>(SuccessInfo.GET_PRODUCT_LIST, productService.getRecommendProductList(productId, category));
     }
 
     @Operation(summary = "상품 상세정보 가져오기 API", description = "조회할 상품 아이디를 입력해주세요.")

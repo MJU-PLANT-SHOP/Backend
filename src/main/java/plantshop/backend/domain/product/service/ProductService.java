@@ -3,6 +3,7 @@ package plantshop.backend.domain.product.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import plantshop.backend.domain.product.dto.response.GetRecommendProductListDto;
 import plantshop.backend.domain.product.dto.response.GetProductListForHomepageFirstMenuResponseDto;
 import plantshop.backend.domain.product.dto.response.GetProductListForHomepageSecondMenuResponseDto;
 import plantshop.backend.domain.product.dto.response.GetProductListResponseDto;
@@ -39,7 +40,7 @@ public class ProductService {
                 .stream()
                 .map(GetProductListForHomepageFirstMenuResponseDto::from)
                 .collect(Collectors.toList());
-        ArrayList<Integer> selectedNumbers = getIntegerArrayList(productList.size());
+        ArrayList<Integer> selectedNumbers = getIntegerArrayList(productList.size(), 12);
         List<GetProductListForHomepageFirstMenuResponseDto> randomProductList = new ArrayList<>();
         for(int i = 0; i < selectedNumbers.size(); i++) {
             randomProductList.add(productList.get(selectedNumbers.get(i)));
@@ -52,18 +53,35 @@ public class ProductService {
                 .stream()
                 .map(GetProductListForHomepageSecondMenuResponseDto::from)
                 .collect(Collectors.toList());
-        ArrayList<Integer> selectedNumbers = getIntegerArrayList(productList.size());
+        ArrayList<Integer> selectedNumbers = getIntegerArrayList(productList.size(), 12);
         List<GetProductListForHomepageSecondMenuResponseDto> randomProductList = new ArrayList<>();
         for(int i = 0; i < selectedNumbers.size(); i++) {
             randomProductList.add(productList.get(selectedNumbers.get(i)));
         } return randomProductList;
     }
-    private static ArrayList<Integer> getIntegerArrayList(int productListLength) {
+    private static ArrayList<Integer> getIntegerArrayList(int productListLength, int selectNumber) {
         ArrayList<Integer> selectedNumbers = new ArrayList<>();
         Random random = new Random();
-        while (selectedNumbers.size() < 12) {
+        while (selectedNumbers.size() < selectNumber) {
             int randomNumber = random.nextInt(productListLength) + 1;
             if (!selectedNumbers.contains(randomNumber))  selectedNumbers.add(randomNumber);
         }  return selectedNumbers;
+    }
+
+    @Transactional
+    public List<GetRecommendProductListDto> getRecommendProductList(Long productId, Category category) {
+        List<GetRecommendProductListDto> categoryProdcutList = productRepository.findProductsByCategoryExceptChoice(category, productId)
+                .stream()
+                .map(GetRecommendProductListDto::from)
+                .collect(Collectors.toList());
+
+
+        ArrayList<Integer> selectedNumbers = getIntegerArrayList(categoryProdcutList.size(), 5);
+
+        List<GetRecommendProductListDto> randomProductList = new ArrayList<>();
+        for (int index : selectedNumbers) {
+            if (index >= 0 && index < categoryProdcutList.size())  randomProductList.add(categoryProdcutList.get(index));
+        } return randomProductList;
+
     }
 }
