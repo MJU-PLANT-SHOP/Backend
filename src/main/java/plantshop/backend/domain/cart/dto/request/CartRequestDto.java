@@ -2,6 +2,7 @@ package plantshop.backend.domain.cart.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,13 @@ import plantshop.backend.domain.product.entity.Product;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartRequestDto {
-    @NotBlank(message = "수량이 없습니다.")
+    @NotNull(message = "수량이 없습니다.")
     @Schema(description = "수량", defaultValue = "1")
     private Integer count;
 
+    @NotNull(message = "수량이 없습니다.")
+    @Schema(description = "수량", defaultValue = "1")
+    private Long productId;
     public Cart toEntity(Member member, Product product){
         return Cart.builder()
                 .member(member)
