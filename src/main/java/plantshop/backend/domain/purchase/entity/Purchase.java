@@ -1,10 +1,7 @@
 package plantshop.backend.domain.purchase.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import plantshop.backend.domain.AuditEntity;
 import plantshop.backend.domain.member.entity.Member;
 
@@ -14,6 +11,7 @@ import java.util.List;
 import static jakarta.persistence.CascadeType.ALL;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -36,6 +34,6 @@ public class Purchase extends AuditEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-    @OneToMany(mappedBy = "purchase", cascade = ALL, orphanRemoval = true)
-    private List<PurchaseDetail> arrayList = new ArrayList<>();
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.ALL, CascadeType.DETACH}, orphanRemoval = true)
+    private List<PurchaseDetail> purchaseDetailList = new ArrayList<>();
 }
