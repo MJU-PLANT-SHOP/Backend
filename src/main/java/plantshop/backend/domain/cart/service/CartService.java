@@ -10,6 +10,7 @@ import plantshop.backend.domain.cart.repository.CartRepository;
 import plantshop.backend.domain.member.entity.Member;
 import plantshop.backend.domain.member.service.MemberService;
 import plantshop.backend.domain.product.entity.Product;
+import plantshop.backend.domain.product.repository.ProductRepository;
 import plantshop.backend.exception.GlobalException;
 import plantshop.backend.response.FailureInfo;
 
@@ -22,11 +23,12 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepository;
     private final MemberService memberService;
-    private final ProductService productService;
+    private final ProductRepository productRepository;
 
     public void addToCart(CartRequestDto cartRequestDto) {
         Member member = memberService.getCurrentMember();
-        Product product = productService.getCurrentProduct();
+        Product product = productRepository.findById(cartRequestDto.getProductId())
+                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
         cartRepository.save(cartRequestDto.toEntity(member, product));
     }
 
@@ -39,7 +41,7 @@ public class CartService {
 
     public void updateCartItem(Long cartId, Integer count) {
         Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTNET_CARTITEM));
+                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
         cartRepository.delete(cart);
         cart.updateCount(count);
         cartRepository.save(cart);
@@ -47,7 +49,7 @@ public class CartService {
 
     public void deleteCartItem(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTNET_CARTITEM));
+                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
         cartRepository.delete(cart);
     }
 }

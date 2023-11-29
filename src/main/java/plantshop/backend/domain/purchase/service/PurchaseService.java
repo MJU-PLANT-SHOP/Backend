@@ -20,7 +20,7 @@ public class PurchaseService {
         Member member = memberService.getCurrentMember();
         Purchase purchase = purchaseRequestDto.toEntity(member);
         purchaseRepository.save(purchase);
-        }
+    }
 
 
 

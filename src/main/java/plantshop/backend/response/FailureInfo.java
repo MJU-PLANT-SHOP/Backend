@@ -15,9 +15,10 @@ public enum FailureInfo {
     NOT_MATCH_PASSWORD("12", "비밀번호가 일치하지 않습니다."),
 
     // 상품 (code: 20~ )
+    NOT_EXISTENT_PRODUCT("20", "존재하지 않는 상품입니다."),
 
     // 장바구니 (code: 30~ )
-    NOT_EXISTNET_CARTITEM("30", "존재하지 않는 장바구니 아이템입니다."),
+    NOT_EXISTENT_CART_ITEM("30", "존재하지 않는 장바구니 아이템입니다."),
     // 게시글(code: 40~ )
     NOT_EXISTENT_POST("40", "존재하지않는 게시글입니다.")
 
