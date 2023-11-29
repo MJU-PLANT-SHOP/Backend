@@ -29,4 +29,5 @@ public class Cart extends AuditEntity {
     @Column(nullable = false)
     private Integer count;
 
+    public void updateCount(Integer count) {this.count = count;}
 }
