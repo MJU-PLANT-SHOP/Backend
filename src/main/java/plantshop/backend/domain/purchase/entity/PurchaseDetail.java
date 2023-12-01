@@ -1,15 +1,13 @@
 package plantshop.backend.domain.purchase.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import plantshop.backend.domain.AuditEntity;
 import plantshop.backend.domain.product.entity.Product;
 import plantshop.backend.domain.purchase.dto.request.PurchaseRequestDto;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

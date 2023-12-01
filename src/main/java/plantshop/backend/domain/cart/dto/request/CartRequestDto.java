@@ -18,9 +18,10 @@ public class CartRequestDto {
     @Schema(description = "수량", defaultValue = "1")
     private Integer count;
 
-    @NotNull(message = "수량이 없습니다.")
-    @Schema(description = "수량", defaultValue = "1")
+    @NotNull(message = "상품 아이디를 입력해주세요.")
+    @Schema(description = "상품아이디", defaultValue = "1")
     private Long productId;
+
     public Cart toEntity(Member member, Product product){
         return Cart.builder()
                 .member(member)
@@ -29,4 +30,3 @@ public class CartRequestDto {
                 .build();
     }
 }
-

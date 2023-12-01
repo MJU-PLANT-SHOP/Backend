@@ -49,7 +49,7 @@ public class CartService {
 
     public void deleteCartItem(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTNET_CARTITEM));
+                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
         cartRepository.delete(cart);
     }
 }

@@ -2,6 +2,7 @@ package plantshop.backend.domain.purchase.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class PurchaseController {
 
     @Operation(summary = "결제하기 API", description = "내용 입력")
     @PostMapping("/trypurchase")
-    public BaseResponse tryPurchase(@RequestBody PurchaseRequestDto purchaseRequestDto){
+    public BaseResponse tryPurchase(@Valid @RequestBody PurchaseRequestDto purchaseRequestDto){
         purchaseService.tryPurchase(purchaseRequestDto);
         return new BaseResponse(SuccessInfo.TRY_PURCHASE);
     }
