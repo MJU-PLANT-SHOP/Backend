@@ -8,6 +8,7 @@ import plantshop.backend.domain.cart.dto.response.GetCartListResponseDto;
 import plantshop.backend.domain.cart.entity.Cart;
 import plantshop.backend.domain.cart.repository.CartRepository;
 import plantshop.backend.domain.member.entity.Member;
+import plantshop.backend.domain.member.repository.MemberRepository;
 import plantshop.backend.domain.member.service.MemberService;
 import plantshop.backend.domain.product.entity.Product;
 import plantshop.backend.domain.product.repository.ProductRepository;
@@ -24,15 +25,19 @@ public class CartService {
     private final CartRepository cartRepository;
     private final MemberService memberService;
     private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
 
     public void addToCart(CartRequestDto cartRequestDto) {
         Member member = memberService.getCurrentMember();
         Product product = productRepository.findById(cartRequestDto.getProductId())
                 .orElseThrow(()-> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
-        //member, product에 해당하는 객체가 저장되어 있는지 확인하기(있으면 count 업데이트)
-        cartRepository.save(cartRequestDto.toEntity(member, product));
-    }
 
+        if(memberRepository.findById(member.getId()) != null &&
+                productRepository.findById(product.getId()) != null){
+            Cart cart = cartRepository.findByMemberIdAndProductId(member.getId(), product.getId());
+            cart.plusCount(cartRequestDto.getCount());
+        } else cartRepository.save(cartRequestDto.toEntity(member, product));
+    }
     public List<GetCartListResponseDto> getCartList() {
         Member member = memberService.getCurrentMember();
         return cartRepository.findAllByMemberId(member.getId())
@@ -43,7 +48,7 @@ public class CartService {
 
     public void updateCartItem(Long cartId, Integer count) {
         Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTNET_CARTITEM));
+                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
         cart.updateCount(count);
     }
 

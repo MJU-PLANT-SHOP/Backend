@@ -30,4 +30,5 @@ public class Cart extends AuditEntity {
     private Integer count;
 
     public void updateCount(Integer count) {this.count = count;}
+    public void plusCount(Integer count){this.count += count;}
 }
