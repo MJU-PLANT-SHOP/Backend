@@ -63,9 +63,10 @@ public class ProductService {
         ArrayList<Integer> selectedNumbers = new ArrayList<>();
         Random random = new Random();
         while (selectedNumbers.size() < selectNumber) {
-            int randomNumber = random.nextInt(productListLength) + 1;
+            int randomNumber = random.nextInt(productListLength);
             if (!selectedNumbers.contains(randomNumber))  selectedNumbers.add(randomNumber);
-        }  return selectedNumbers;
+        }
+        return selectedNumbers;
     }
 
     @Transactional
