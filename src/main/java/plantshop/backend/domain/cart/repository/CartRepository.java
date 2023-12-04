@@ -1,0 +1,12 @@
+package plantshop.backend.domain.cart.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import plantshop.backend.domain.cart.entity.Cart;
+import plantshop.backend.domain.member.entity.Member;
+
+import java.util.List;
+
+public interface CartRepository extends JpaRepository<Cart, Long> {
+    List<Cart> findAllByMemberId(Long memberId);
+    Cart findByMemberIdAndProductId(Long memberId, Long productId);
+}
