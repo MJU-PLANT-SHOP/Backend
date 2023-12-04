@@ -69,7 +69,10 @@ public class ProductService {
     }
 
     @Transactional
-    public List<GetRecommendProductListDto> getRecommendProductList(Long productId, Category category) {
+    public List<GetRecommendProductListDto> getRecommendProductList(Long productId) {
+        Category category = productRepository.findCategoryByProductId(productId)
+                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
+
         List<GetRecommendProductListDto> categoryProdcutList = productRepository.findProductsByCategoryExceptChoice(category, productId)
                 .stream()
                 .map(GetRecommendProductListDto::from)

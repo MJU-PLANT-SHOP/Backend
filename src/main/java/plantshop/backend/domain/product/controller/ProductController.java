@@ -44,8 +44,8 @@ public class ProductController {
 
     @Operation(summary = "상세 페이지 추천 상품 목록 가져오기 API", description = "상세 페이지 추천 상품 목록 가져오기")
     @GetMapping("/detail/recommend")
-    public DataResponse<List<GetRecommendProductListDto>> getRecommendProductList(Long productId, Category category){
-        return new DataResponse<>(SuccessInfo.GET_PRODUCT_LIST, productService.getRecommendProductList(productId, category));
+    public DataResponse<List<GetRecommendProductListDto>> getRecommendProductList(Long productId){
+        return new DataResponse<>(SuccessInfo.GET_PRODUCT_LIST, productService.getRecommendProductList(productId));
     }
 
     @Operation(summary = "상품 상세정보 가져오기 API", description = "조회할 상품 아이디를 입력해주세요.")
