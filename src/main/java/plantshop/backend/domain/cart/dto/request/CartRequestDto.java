@@ -19,7 +19,7 @@ public class CartRequestDto {
     private Integer count;
 
     @NotNull(message = "상품 아이디를 입력해주세요.")
-    @Schema(description = "상품아이디", defaultValue = "1")
+    @Schema(description = "상품 아이디", defaultValue = "1")
     private Long productId;
 
     public Cart toEntity(Member member, Product product){

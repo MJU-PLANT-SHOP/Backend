@@ -16,6 +16,7 @@ import plantshop.backend.exception.GlobalException;
 import plantshop.backend.response.FailureInfo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -31,10 +32,9 @@ public class CartService {
         Member member = memberService.getCurrentMember();
         Product product = productRepository.findById(cartRequestDto.getProductId())
                 .orElseThrow(()-> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
-
-        if(memberRepository.findById(member.getId()) != null &&
-                productRepository.findById(product.getId()) != null){
-            Cart cart = cartRepository.findByMemberIdAndProductId(member.getId(), product.getId());
+        Optional<Cart> opotionalCart = cartRepository.findByMemberIdAndProductId(member.getId(), product.getId());
+        if(!opotionalCart.isEmpty()){
+            Cart cart = opotionalCart.get();
             cart.plusCount(cartRequestDto.getCount());
         } else cartRepository.save(cartRequestDto.toEntity(member, product));
     }
@@ -45,13 +45,11 @@ public class CartService {
                 .map(GetCartListResponseDto::from)
                 .collect(Collectors.toList());
     }
-
     public void updateCartItem(Long cartId, Integer count) {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
         cart.updateCount(count);
     }
-
     public void deleteCartItem(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
