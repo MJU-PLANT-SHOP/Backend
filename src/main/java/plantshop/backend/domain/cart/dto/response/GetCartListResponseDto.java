@@ -16,13 +16,13 @@ public class GetCartListResponseDto {
     private String productName;
     @Schema(description = "상품 갯수", defaultValue = "1")
     private Integer count;
-    @Schema(description = "상품 가격", defaultValue = "1")
-    private Integer price;
+    @Schema(description = "상품 총 가격", defaultValue = "1")
+    private Integer totalPrice;
     public static GetCartListResponseDto from(Cart cart) {
         return GetCartListResponseDto.builder()
                 .productName(cart.getProduct().getName())
                 .count(cart.getCount())
-                .price(cart.getProduct().getPrice() * cart.getCount())
+                .totalPrice(cart.getProduct().getPrice() * cart.getCount())
                 .build();
     }
 }
