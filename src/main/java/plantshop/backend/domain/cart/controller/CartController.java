@@ -5,7 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import plantshop.backend.domain.cart.dto.request.CartRequestDto;
+import plantshop.backend.domain.cart.dto.request.CartAddRequestDto;
+import plantshop.backend.domain.cart.dto.request.CartUpdateRequestDto;
 import plantshop.backend.domain.cart.dto.response.GetCartListResponseDto;
 import plantshop.backend.domain.cart.service.CartService;
 import plantshop.backend.response.BaseResponse;
@@ -24,11 +25,10 @@ public class CartController {
 
     @Operation(summary = "장바구니 추가 API", description = "장바구니에 물품 추가 API")
     @PostMapping()
-    public BaseResponse addToCart(@Valid @RequestBody CartRequestDto cartRequestDto){
+    public BaseResponse addToCart(@Valid @RequestBody CartAddRequestDto cartRequestDto){
         cartService.addToCart(cartRequestDto);
         return new BaseResponse(ADD_CART);
     }
-
     @Operation(summary = "장바구니 조회 API", description = "장바구니 조회 API")
     @GetMapping()
     public DataResponse<List<GetCartListResponseDto>> getCartList(){
@@ -36,8 +36,8 @@ public class CartController {
     }
     @Operation(summary = "장바구니 수정 API", description = "장바구니 물품 갯수 수정 API")
     @PutMapping()
-    public BaseResponse updateCartItem(Long cartId, Integer count){
-        cartService.updateCartItem(cartId, count);
+    public BaseResponse updateCartItem(@Valid @RequestBody CartUpdateRequestDto cartUpdateRequestDto){
+        cartService.updateCartItem(cartUpdateRequestDto);
         return new BaseResponse(UPDATE_CART);
     }
     @Operation(summary = "장바구니 삭제 API", description = "장바구니 삭제 API")

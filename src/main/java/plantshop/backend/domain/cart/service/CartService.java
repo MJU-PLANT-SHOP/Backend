@@ -3,7 +3,8 @@ package plantshop.backend.domain.cart.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import plantshop.backend.domain.cart.dto.request.CartRequestDto;
+import plantshop.backend.domain.cart.dto.request.CartAddRequestDto;
+import plantshop.backend.domain.cart.dto.request.CartUpdateRequestDto;
 import plantshop.backend.domain.cart.dto.response.GetCartListResponseDto;
 import plantshop.backend.domain.cart.entity.Cart;
 import plantshop.backend.domain.cart.repository.CartRepository;
@@ -28,7 +29,7 @@ public class CartService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
-    public void addToCart(CartRequestDto cartRequestDto) {
+    public void addToCart(CartAddRequestDto cartRequestDto) {
         Member member = memberService.getCurrentMember();
         Product product = productRepository.findById(cartRequestDto.getProductId())
                 .orElseThrow(()-> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
@@ -45,10 +46,10 @@ public class CartService {
                 .map(GetCartListResponseDto::from)
                 .collect(Collectors.toList());
     }
-    public void updateCartItem(Long cartId, Integer count) {
-        Cart cart = cartRepository.findById(cartId)
+    public void updateCartItem(CartUpdateRequestDto cartUpdateRequestDto) {
+        Cart cart = cartRepository.findById(cartUpdateRequestDto.getCartId())
                 .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
-        cart.updateCount(count);
+        cart.updateCount(cartUpdateRequestDto.getCount());
     }
     public void deleteCartItem(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
