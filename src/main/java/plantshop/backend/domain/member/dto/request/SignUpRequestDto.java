@@ -1,7 +1,9 @@
 package plantshop.backend.domain.member.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import plantshop.backend.domain.member.entity.Member;
 public class SignUpRequestDto {
     @Schema(description = "이메일", defaultValue = "test@gmail.com")
     @NotBlank(message = "이메일을 입력해주세요.")
+    @Email(message = "유효한 이메일 주소가 아닙니다.")
     private String email;
     @Schema(description = "비밀번호", defaultValue = "test1234")
     @NotBlank(message = "비밀번호를 입력해주세요.")
@@ -23,6 +26,7 @@ public class SignUpRequestDto {
     private String name;
     @Schema(description = "휴대폰 번호", defaultValue = "01012345678")
     @NotBlank(message = "휴대폰 번호를 입력해주세요.")
+    @Pattern(regexp = "^[0-9]*$", message = "휴대폰 번호는 숫자만 포함할 수 있습니다.")
     private String phone;
     @Schema(description = "주소", defaultValue = "서울특별시 서대문구 거북골로 34")
     @NotBlank(message = "주소를 입력해주세요.")

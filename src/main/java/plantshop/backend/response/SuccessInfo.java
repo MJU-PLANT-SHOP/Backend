@@ -10,6 +10,9 @@ public enum SuccessInfo {
     //멤버
     SING_UP("회원가입이 완료되었습니다."),
     LOGIN("로그인이 성공하였습니다."),
+    GET_MY_INFO("내 정보 가져오기를 성공하였습니다."),
+    REISSUE("토큰 재발행을 성공하였습니다"),
+
 
     //게시글
     WRITE_POST("게시글 작성이 성공하였습니다."),

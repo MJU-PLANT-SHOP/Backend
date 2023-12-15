@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import plantshop.backend.exception.GlobalException;
+import plantshop.backend.response.FailureInfo;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -61,7 +63,7 @@ public class JwtProvider {
         Claims claims = parseClaims(accessToken);
 
         if(claims.get(AUTHORITIES_KEY) == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+            throw new GlobalException(FailureInfo.INVALID_ACCESS_TOKEN);
         }
 
         Collection<? extends GrantedAuthority> authorities = getAuthorities(claims);
