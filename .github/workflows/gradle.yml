@@ -43,7 +43,7 @@ jobs:
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker-compose -f docker-compose-prod.yml build 
         docker images
-        docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
+        docker push dtd1614/plant-shop-backend-app
 
     - name: Up docker-compose
       uses: appleboy/ssh-action@master
