@@ -1,8 +1,10 @@
 package plantshop.backend.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import plantshop.backend.response.FailureInfo;
 import plantshop.backend.response.BaseResponse;
@@ -18,6 +20,7 @@ public class ExceptionAdvice {
     }
 
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected BaseResponse internalSeverException(Exception e){
         log.error("internal server exception.", e);
         return new BaseResponse(FailureInfo.INTERNAL_SERVER_ERROR);

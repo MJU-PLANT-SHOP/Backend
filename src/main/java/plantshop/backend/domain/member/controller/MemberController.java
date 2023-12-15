@@ -4,22 +4,19 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import plantshop.backend.domain.member.dto.request.LoginRequestDto;
+import org.springframework.web.bind.annotation.*;
+import plantshop.backend.domain.member.dto.request.SignInRequestDto;
 import plantshop.backend.domain.member.dto.request.SignUpRequestDto;
-import plantshop.backend.domain.member.dto.response.LoginResponseDto;
+import plantshop.backend.domain.member.dto.request.TokenRequestDto;
+import plantshop.backend.domain.member.dto.response.GetMyInfoResponseDto;
+import plantshop.backend.domain.member.dto.response.SignInResponseDto;
+import plantshop.backend.domain.member.dto.response.TokenResponseDto;
 import plantshop.backend.domain.member.service.MemberService;
 import plantshop.backend.response.BaseResponse;
 import plantshop.backend.response.DataResponse;
 
-import java.security.Security;
-
-import static plantshop.backend.response.SuccessInfo.LOGIN;
-import static plantshop.backend.response.SuccessInfo.SING_UP;
+import static org.springframework.http.HttpStatus.OK;
+import static plantshop.backend.response.SuccessInfo.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,9 +33,21 @@ public class MemberController {
     }
 
     @Operation(summary = "로그인 API", description = "로그인 정보를 입력하세요.")
-    @PostMapping("/login")
-    public DataResponse<LoginResponseDto> singIn(@Valid @RequestBody LoginRequestDto loginRequestDto){
-        return new DataResponse<>(LOGIN, memberService.login(loginRequestDto));
+    @PostMapping("/sign-in")
+    public DataResponse<SignInResponseDto> singIn(@Valid @RequestBody SignInRequestDto signInRequestDto){
+        return new DataResponse<>(LOGIN, memberService.signIn(signInRequestDto));
     }
 
+    @Operation(summary = "내 정보 가져오기 API", description = "내 정보 가져오기 API 입니다.")
+    @GetMapping("/me")
+    public DataResponse<GetMyInfoResponseDto> getMyInfo() {
+        return new DataResponse<>(GET_MY_INFO, memberService.getMyInfo());
+    }
+
+    @Operation(summary = "토큰 재발행 API", description = "토큰 정보를 입력하세요.")
+    @ResponseStatus(OK)
+    @PostMapping("/reissue")
+    public DataResponse<TokenResponseDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+        return new DataResponse<>(REISSUE, memberService.reissue(tokenRequestDto));
+    }
 }

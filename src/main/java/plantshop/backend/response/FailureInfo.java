@@ -13,15 +13,18 @@ public enum FailureInfo {
     ALREADY_EXISTENT_MEMBER("10", "이미 존재하는 회원입니다."),
     NOT_EXISTENT_MEMBER("11", "존재하지 않는 회원입니다."),
     NOT_MATCH_PASSWORD("12", "비밀번호가 일치하지 않습니다."),
+    INVALID_ACCESS_TOKEN("13", "엑세스 토큰이 유효하지 않습니다"),
+    ACCESS_DENIED("14", "권한이 없습니다."),
+    NOT_EXISTENT_REFRESH_TOKEN("15", "존재하지 않는 리프레시 토큰입니다."),
+    INVALID_REFRESH_TOKEN("16", "리프레시 토큰이 유효하지 않습니다"),
+
+
 
     // 상품 (code: 20~ )
     NOT_EXISTENT_PRODUCT("20", "존재하지 않는 상품입니다."),
 
     // 장바구니 (code: 30~ )
     NOT_EXISTENT_CART_ITEM("30", "존재하지 않는 장바구니 아이템입니다."),
-    // 게시글(code: 40~ )
-    NOT_EXISTENT_POST("40", "존재하지않는 게시글입니다.")
-
     ;
     private final String code;
     private final String message;

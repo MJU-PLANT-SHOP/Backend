@@ -32,7 +32,8 @@ public class SecurityConfig {
             "/api-docs/**",
             "/api",
             "/api/members/sign-up",
-            "/api/members/login"
+            "/api/members/sign-in",
+            "/api/members/reissue"
     };
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
