@@ -25,9 +25,6 @@ public enum FailureInfo {
 
     // 장바구니 (code: 30~ )
     NOT_EXISTENT_CART_ITEM("30", "존재하지 않는 장바구니 아이템입니다."),
-    // 게시글(code: 40~ )
-    NOT_EXISTENT_POST("40", "존재하지않는 게시글입니다.")
-
     ;
     private final String code;
     private final String message;

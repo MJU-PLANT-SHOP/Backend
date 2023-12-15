@@ -13,12 +13,6 @@ public enum SuccessInfo {
     GET_MY_INFO("내 정보 가져오기를 성공하였습니다."),
     REISSUE("토큰 재발행을 성공하였습니다"),
 
-
-    //게시글
-    WRITE_POST("게시글 작성이 성공하였습니다."),
-    GET_POST_LIST("게시글 목록 가져오기를 성공하였습니다"),
-    GET_POST("게시글 가져오기를 성공하였습니다."),
-
     //장바구니
     ADD_CART("장바구니에 물품을 추가하였습니다."),
     UPDATE_CART("장바구니 물품 갯수를 수정했습니다."),
