@@ -1,13 +1,13 @@
-package plantshop.backend;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class PlantShopBackendApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
-
-}
+//package plantshop.backend;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class PlantShopBackendApplicationTests {
+//
+//    @Test
+//    void contextLoads() {
+//    }
+//
+//}

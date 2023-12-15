@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import plantshop.backend.domain.post.entity.Post;
 import plantshop.backend.domain.product.entity.Category;
 import plantshop.backend.domain.product.entity.Product;
 import plantshop.backend.domain.product.entity.ProductImage;
