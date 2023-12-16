@@ -18,8 +18,6 @@ public enum FailureInfo {
     NOT_EXISTENT_REFRESH_TOKEN("15", "존재하지 않는 리프레시 토큰입니다."),
     INVALID_REFRESH_TOKEN("16", "리프레시 토큰이 유효하지 않습니다"),
 
-
-
     // 상품 (code: 20~ )
     NOT_EXISTENT_PRODUCT("20", "존재하지 않는 상품입니다."),
 
