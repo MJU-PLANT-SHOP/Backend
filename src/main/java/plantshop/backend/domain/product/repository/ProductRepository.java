@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import plantshop.backend.domain.post.entity.Post;
 import plantshop.backend.domain.product.dto.response.GetProductListResponseDto;
 import plantshop.backend.domain.product.entity.Category;
 import plantshop.backend.domain.product.entity.Product;
