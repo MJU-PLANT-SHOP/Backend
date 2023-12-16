@@ -1,5 +1,6 @@
 package plantshop.backend.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,6 +34,16 @@ public class ExceptionAdvice {
                 false,
                 FailureInfo.INVALID_INPUT.getCode(),
                 e.getFieldError().getDefaultMessage()
+        );
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected BaseResponse invalidInputException(ConstraintViolationException e){
+        log.error("invalid input exception." + e);
+        return new BaseResponse(
+                false,
+                FailureInfo.INVALID_INPUT.getCode(),
+                e.getConstraintViolations().stream().toList().get(0).getMessage()
         );
     }
 }

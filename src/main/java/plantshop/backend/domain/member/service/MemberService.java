@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import plantshop.backend.config.jwt.JwtProvider;
 import plantshop.backend.config.jwt.TokenDto;
-import plantshop.backend.domain.member.dto.request.CheckEmailRequestDto;
 import plantshop.backend.domain.member.dto.request.SignInRequestDto;
 import plantshop.backend.domain.member.dto.request.SignUpRequestDto;
 import plantshop.backend.domain.member.dto.request.TokenRequestDto;
@@ -111,8 +110,8 @@ public class MemberService {
                 .build();
     }
 
-    public void checkEmail(CheckEmailRequestDto checkEmailRequestDto) {
-        memberRepository.findByEmail(checkEmailRequestDto.getEmail())
-                .orElseThrow(()->new GlobalException(FailureInfo.ALREADY_EXISTENT_MEMBER));
+    public void checkEmail(String email) {
+        if(memberRepository.existsByEmail(email))
+            throw new GlobalException(FailureInfo.ALREADY_EXISTENT_MEMBER);
     }
 }
