@@ -3,9 +3,11 @@ package plantshop.backend.domain.member.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import plantshop.backend.domain.member.dto.request.CheckEmailRequestDto;
 import plantshop.backend.domain.member.dto.request.SignInRequestDto;
 import plantshop.backend.domain.member.dto.request.SignUpRequestDto;
 import plantshop.backend.domain.member.dto.request.TokenRequestDto;
@@ -22,6 +24,7 @@ import static plantshop.backend.response.SuccessInfo.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 @Tag(name = "회원 API 명세서", description = "회원 API 명세서")
+@Validated
 public class MemberController {
     private final MemberService memberService;
 
@@ -51,8 +54,11 @@ public class MemberController {
     }
     @Operation(summary = "이메일 중복 검사 API", description = "이메일을 입력하세요.")
     @GetMapping("/check-email")
-    public BaseResponse checkEmail(@Valid @RequestBody CheckEmailRequestDto checkEmailRequestDto) {
-        memberService.checkEmail(checkEmailRequestDto);
+    public BaseResponse checkEmail(
+            @NotBlank(message = "이메일을 입력해주세요.")
+            @Email(message = "유효한 이메일 주소가 아닙니다.")
+            String email) {
+        memberService.checkEmail(email);
         return new BaseResponse(CHECK_EMAIL);
     }
 }
