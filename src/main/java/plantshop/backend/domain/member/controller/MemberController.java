@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import plantshop.backend.domain.member.dto.request.CheckEmailRequestDto;
 import plantshop.backend.domain.member.dto.request.SignInRequestDto;
 import plantshop.backend.domain.member.dto.request.SignUpRequestDto;
 import plantshop.backend.domain.member.dto.request.TokenRequestDto;
@@ -15,7 +16,6 @@ import plantshop.backend.domain.member.service.MemberService;
 import plantshop.backend.response.BaseResponse;
 import plantshop.backend.response.DataResponse;
 
-import static org.springframework.http.HttpStatus.OK;
 import static plantshop.backend.response.SuccessInfo.*;
 
 @RestController
@@ -45,9 +45,14 @@ public class MemberController {
     }
 
     @Operation(summary = "토큰 재발행 API", description = "토큰 정보를 입력하세요.")
-    @ResponseStatus(OK)
     @PostMapping("/reissue")
-    public DataResponse<TokenResponseDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+    public DataResponse<TokenResponseDto> reissue(@Valid @RequestBody TokenRequestDto tokenRequestDto) {
         return new DataResponse<>(REISSUE, memberService.reissue(tokenRequestDto));
+    }
+    @Operation(summary = "이메일 중복 검사 API", description = "이메일을 입력하세요.")
+    @GetMapping("/check-email")
+    public BaseResponse checkEmail(@Valid @RequestBody CheckEmailRequestDto checkEmailRequestDto) {
+        memberService.checkEmail(checkEmailRequestDto);
+        return new BaseResponse(CHECK_EMAIL);
     }
 }

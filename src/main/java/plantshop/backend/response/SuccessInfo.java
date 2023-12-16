@@ -12,6 +12,7 @@ public enum SuccessInfo {
     LOGIN("로그인이 성공하였습니다."),
     GET_MY_INFO("내 정보 가져오기를 성공하였습니다."),
     REISSUE("토큰 재발행을 성공하였습니다"),
+    CHECK_EMAIL("사용 가능한 이메일입니다."),
 
     //장바구니
     ADD_CART("장바구니에 물품을 추가하였습니다."),
