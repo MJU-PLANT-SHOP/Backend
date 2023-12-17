@@ -1,3 +1,3 @@
-# Plant Shop Backend
+# Plant Shop Server
 
-Plant Shop Backend by Java/Spring Boot
+Plant Shop Server by Spring Boot
