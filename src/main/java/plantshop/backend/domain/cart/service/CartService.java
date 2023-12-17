@@ -47,18 +47,23 @@ public class CartService {
                 .collect(Collectors.toList());
     }
     public void updateCartItem(CartUpdateRequestDto cartUpdateRequestDto) {
-        Member member = memberService.getCurrentMember();
-        Product product = productRepository.findById(cartUpdateRequestDto.getProductId())
-                .orElseThrow(()-> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
-        Optional<Cart> opotionalCart = cartRepository.findByMemberIdAndProductId(member.getId(), product.getId());
+        Optional<Cart> opotionalCart = findCartByProductId(cartUpdateRequestDto.getProductId());
         if(!opotionalCart.isEmpty()){
             Cart cart = opotionalCart.get();
             cart.updateCount(cartUpdateRequestDto.getCount());
         } else throw new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM);
     }
-    public void deleteCartItem(Long cartId) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
-        cartRepository.delete(cart);
+    public void deleteCartItem(Long productId) {
+        Optional<Cart> opotionalCart = findCartByProductId(productId);
+        if(!opotionalCart.isEmpty()){
+            Cart cart = opotionalCart.get();
+            cartRepository.delete(cart);
+        } else throw new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM);
+    }
+    private Optional<Cart> findCartByProductId(Long productId) {
+        Member member = memberService.getCurrentMember();
+        Product product = productRepository.findById(productId)
+                .orElseThrow(()-> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
+        return cartRepository.findByMemberIdAndProductId(member.getId(), productId);
     }
 }
