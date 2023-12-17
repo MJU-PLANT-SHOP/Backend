@@ -42,8 +42,8 @@ public class CartController {
     }
     @Operation(summary = "장바구니 삭제 API", description = "장바구니 삭제 API")
     @DeleteMapping()
-    public BaseResponse deleteCartItem(Long cartId){
-        cartService.deleteCartItem(cartId);
+    public BaseResponse deleteCartItem(Long productId){
+        cartService.deleteCartItem(productId);
         return new BaseResponse(DELETE_CART);
     }
 }
