@@ -13,9 +13,9 @@ import plantshop.backend.domain.product.entity.Product;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartUpdateRequestDto {
-    @NotNull(message = "장바구니 아이디를 입력해주세요.")
-    @Schema(description = "장바구니 아이디", defaultValue = "1")
-    private Long cartId;
+    @NotNull(message = "상품 아이디를 입력해주세요.")
+    @Schema(description = "상품 아이디", defaultValue = "1")
+    private Long productId;
 
     @NotNull(message = "수량이 없습니다.")
     @Schema(description = "수량", defaultValue = "1")

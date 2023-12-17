@@ -47,9 +47,14 @@ public class CartService {
                 .collect(Collectors.toList());
     }
     public void updateCartItem(CartUpdateRequestDto cartUpdateRequestDto) {
-        Cart cart = cartRepository.findById(cartUpdateRequestDto.getCartId())
-                .orElseThrow(() -> new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM));
-        cart.updateCount(cartUpdateRequestDto.getCount());
+        Member member = memberService.getCurrentMember();
+        Product product = productRepository.findById(cartUpdateRequestDto.getProductId())
+                .orElseThrow(()-> new GlobalException(FailureInfo.NOT_EXISTENT_PRODUCT));
+        Optional<Cart> opotionalCart = cartRepository.findByMemberIdAndProductId(member.getId(), product.getId());
+        if(!opotionalCart.isEmpty()){
+            Cart cart = opotionalCart.get();
+            cart.updateCount(cartUpdateRequestDto.getCount());
+        } else throw new GlobalException(FailureInfo.NOT_EXISTENT_CART_ITEM);
     }
     public void deleteCartItem(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
