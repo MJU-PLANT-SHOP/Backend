@@ -24,4 +24,15 @@ public class GetMyInfoResponseDto {
     private String phone;
     @Schema(description = "주소", defaultValue = "서울특별시 서대문구 거북골로 34")
     private String address;
+    @Schema(description = "결제완료 개수", defaultValue = "1")
+    private Integer completePaymentCount;
+    @Schema(description = "상품준비중 개수", defaultValue = "1")
+    private Integer preparingProductCount;
+    @Schema(description = "배송중 개수", defaultValue = "1")
+    private Integer shippingCount;
+    @Schema(description = "배송완료 개수", defaultValue = "1")
+    private Integer completeShippingCount;
+
+
+
 }
