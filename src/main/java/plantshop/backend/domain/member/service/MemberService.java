@@ -1,5 +1,6 @@
 package plantshop.backend.domain.member.service;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import plantshop.backend.config.jwt.JwtProvider;
 import plantshop.backend.config.jwt.TokenDto;
 import plantshop.backend.domain.member.dto.request.SignInRequestDto;
@@ -19,14 +21,18 @@ import plantshop.backend.domain.member.entity.Member;
 import plantshop.backend.domain.member.entity.RefreshToken;
 import plantshop.backend.domain.member.repository.MemberRepository;
 import plantshop.backend.domain.member.repository.RefreshTokenRepository;
+import plantshop.backend.domain.purchase.entity.Status;
+import plantshop.backend.domain.purchase.repository.PurchaseRepository;
 import plantshop.backend.exception.GlobalException;
 import plantshop.backend.response.FailureInfo;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final PurchaseRepository purchaseRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -57,12 +63,20 @@ public class MemberService {
 
     public GetMyInfoResponseDto getMyInfo() {
         Member member = getCurrentMember();
+        Integer completePaymentCount = purchaseRepository.countByMemberAndStatus(member, Status.COMPLETE_PAYMENT);
+        Integer preparingProductCount = purchaseRepository.countByMemberAndStatus(member, Status.PREPARING_PRODUCT);;
+        Integer shippingCount = purchaseRepository.countByMemberAndStatus(member, Status.SHIPPING);
+        Integer completeShippingCount = purchaseRepository.countByMemberAndStatus(member, Status.COMPLETE_SHIPPING);
         return GetMyInfoResponseDto.builder()
                 .id(member.getId())
                 .name(member.getName())
                 .phone(member.getPhone())
                 .email(member.getEmail())
                 .address(member.getAddress())
+                .completePaymentCount(completePaymentCount)
+                .preparingProductCount(preparingProductCount)
+                .shippingCount(shippingCount)
+                .completeShippingCount(completeShippingCount)
                 .build();
     }
 
